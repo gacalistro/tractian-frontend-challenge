@@ -1,6 +1,6 @@
-import { useTreeContext } from "./context/tree-context";
-import { TreeActionEnum } from "./reducer/tree-reducer";
-import type { NodeProps } from "./types";
+import { useTreeContext } from "../../context/tree-context";
+import { TreeActionEnum } from "../../reducer/tree-reducer";
+import type { NodeProps } from "../../types";
 
 interface TreeNodeProps {
   node: NodeProps;

@@ -1,20 +1,21 @@
 import { NodeProps } from "../types";
 
-const buildTreeFromJson = (
-  data: NodeProps[],
-  parentId: null | string = null
-): NodeProps[] => {
-  let tree: NodeProps[] = [];
+export const buildTreeFromJson = (data: NodeProps[]): NodeProps[] => {
+  const map = new Map<string, NodeProps>();
+  const tree: NodeProps[] = [];
 
   data.forEach((item) => {
-    if ((item.locationId || item.parentId) === parentId) {
-      let children = buildTreeFromJson(data, item.id);
+    map.set(item.id, { ...item, children: [] });
+  });
 
-      if (children?.length) {
-        item.children = children;
+  map.forEach((node) => {
+    if (node.parentId || node.locationId) {
+      const parentNode = map.get(node.parentId || node.locationId || "");
+      if (parentNode) {
+        parentNode.children!.push(node);
       }
-
-      tree.push(item);
+    } else {
+      tree.push(node);
     }
   });
 

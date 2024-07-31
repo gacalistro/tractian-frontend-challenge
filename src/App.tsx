@@ -1,64 +1,41 @@
-import { type ChangeEvent, useState } from "react";
-import { useTreeContext } from "./context/tree-context";
-import { TreeActionEnum } from "./reducer/tree-reducer";
-import { TreeNode } from "./tree-node";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { api } from "./lib/axios.ts";
+import { Companies } from "./pages/companies/index.tsx";
+import { CompanyDetails } from "./pages/company-details/index.tsx";
+import { Layout } from "./pages/layout.tsx";
+import type { NodeProps } from "./types.ts";
+import { buildTreeFromJson } from "./utils/build-tree-from-json.ts";
 
-function App() {
-  const { state, dispatch } = useTreeContext();
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    loader: async () => {
+      return await api.get("");
+    },
+    children: [
+      {
+        path: "/",
+        element: <Companies />,
+      },
+      {
+        path: "/:companyId",
+        element: <CompanyDetails />,
+        loader: async ({ params }) => {
+          const id = params.companyId;
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilters, setActiveFilters] = useState({
-    energySensor: false,
-    criticStatus: false,
-  });
+          return await Promise.all([
+            api.get<NodeProps[]>(`/${id}/assets`),
+            api.get<NodeProps[]>(`/${id}/locations`),
+          ])
+            .then((responses) => responses.map((response) => response.data))
+            .then((data) => data.flat())
+            .then(async (tree) => buildTreeFromJson(tree));
+        },
+      },
+    ],
+  },
+]);
 
-  const handleQuery = (event: ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value;
-
-    setSearchQuery(query);
-    dispatch({ type: TreeActionEnum.search, query });
-  };
-
-  const handleFilter = (type: keyof typeof activeFilters) => {
-    activeFilters[type] = !activeFilters[type];
-
-    setActiveFilters(activeFilters);
-
-    dispatch({
-      type: TreeActionEnum.filter_tree,
-      activeFilters,
-    });
-  };
-
-  return (
-    <div className="p-4 space-y-3">
-      <h1>Dynamic Tree</h1>
-
-      <input type="text" onChange={handleQuery} value={searchQuery} />
-
-      <button
-        onClick={() => handleFilter("energySensor")}
-        style={{
-          color: activeFilters.energySensor ? "red" : "",
-        }}
-      >
-        Energy Sensor
-      </button>
-
-      <button
-        onClick={() => handleFilter("criticStatus")}
-        style={{
-          color: activeFilters.criticStatus ? "red" : "",
-        }}
-      >
-        Critic Status
-      </button>
-
-      {state.map((node) => (
-        <TreeNode key={node.id} node={node} />
-      ))}
-    </div>
-  );
+export function App() {
+  return <RouterProvider router={router} />;
 }
-
-export default App;
