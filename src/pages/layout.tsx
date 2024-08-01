@@ -1,4 +1,8 @@
 import { NavLink, Outlet, useLoaderData } from "react-router-dom";
+import { UnitTitle } from "./unit-title";
+import { ActiveFiltersButtons } from "./active-filters-buttons";
+
+import CompanyIcon from "../assets/icons/company.svg?react";
 
 export function Layout() {
   const { data: companies } = useLoaderData() as {
@@ -21,7 +25,7 @@ export function Layout() {
                 }`
               }
             >
-              <img src="/icons/company.svg" />
+              <CompanyIcon />
               {company.name} Unit
             </NavLink>
           ))}
@@ -29,7 +33,12 @@ export function Layout() {
       </header>
 
       <main className="flex-1 flex p-2">
-        <section className="bg-white flex-1 p-4 border rounded">
+        <section className="bg-white flex-1 p-4 border rounded space-y-3 flex flex-col">
+          <header className="flex items-center justify-between">
+            <UnitTitle companies={companies} />
+            <ActiveFiltersButtons />
+          </header>
+
           <Outlet />
         </section>
       </main>
