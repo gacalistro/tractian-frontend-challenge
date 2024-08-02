@@ -3,9 +3,11 @@ import { TreeActionEnum } from "../../reducer/tree-reducer";
 import type { NodeProps } from "../../types";
 
 import ChevronIcon from "../../assets/icons/chevron.svg?react";
-import Codepen from "../../assets/icons/codepen.svg?react";
-import Cube from "../../assets/icons/cube.svg?react";
+import CodepenIcon from "../../assets/icons/codepen.svg?react";
+import CubeIcon from "../../assets/icons/cube.svg?react";
 import MapPinIcon from "../../assets/icons/map-pin.svg?react";
+import EnergyIcon from "../../assets/icons/bolt.svg?react";
+import DotIcon from "../../assets/icons/dot.svg?react";
 
 interface TreeNodeProps {
   node: NodeProps;
@@ -41,10 +43,26 @@ export function TreeNode({ node }: TreeNodeProps) {
           )}
 
           {isLocation && <MapPinIcon className="text-blue-500" />}
-          {isAsset && <Cube className="text-blue-500" />}
-          {isComponent && <Codepen className="size-5 text-blue-500" />}
+          {isAsset && <CubeIcon className="text-blue-500" />}
+          {isComponent && <CodepenIcon className="size-5 text-blue-500" />}
 
           {node.name}
+
+          {node.sensorType === "energy" && (
+            <EnergyIcon
+              className={`${
+                node.status === "alert" ? "text-red-500" : "text-green-500"
+              } `}
+            />
+          )}
+
+          {isComponent && node.sensorType !== "energy" && (
+            <DotIcon
+              className={`${
+                node.status === "alert" ? "text-red-500" : "text-green-500"
+              } `}
+            />
+          )}
         </button>
       </div>
 
