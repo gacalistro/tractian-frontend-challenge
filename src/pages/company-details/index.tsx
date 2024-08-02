@@ -23,9 +23,11 @@ export function CompanyDetails() {
       <div className="border basis-1/3 rounded-sm">
         <SearchInput />
 
-        {state.map((node) => (
-          <TreeNode key={node.id} node={node} />
-        ))}
+        <div className="px-1">
+          {state.map((node) => (
+            <TreeNode key={node.id} node={node} />
+          ))}
+        </div>
       </div>
       <div className="border basis-2/3 rounded-sm"></div>
     </div>

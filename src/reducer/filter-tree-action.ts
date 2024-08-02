@@ -15,6 +15,10 @@ export const filterTree = (
     node.isBeingFiltered = isBeingFiltered;
     node.isExpanded = isBeingFiltered;
 
+    if (Object.values(activeFilters).every((value) => value === false)) {
+      delete node.isBeingFiltered;
+    }
+
     if (node.children) {
       filterTree(node.children, activeFilters);
 

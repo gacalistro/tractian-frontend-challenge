@@ -23,6 +23,7 @@ export function SearchInput() {
         placeholder="Buscar Ativo ou Local"
         className="flex-1 h-8 outline-none"
         onChange={handleQuery}
+        value={searchQuery}
       />
       <SearchIcon />
     </div>
