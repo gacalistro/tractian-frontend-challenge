@@ -31,9 +31,10 @@ export function TreeNode({ node }: TreeNodeProps) {
   const isComponent = !isLocation && !isAsset;
 
   const filter = node.isBeingFiltered === false && node.isExpanded === false;
+  const search = node.isBeingSearched === false && node.isExpanded === false;
 
   return (
-    <div className={`${filter && "hidden"}`}>
+    <div className={`${(search || filter) && "hidden"}`}>
       <div className={`flex items-center gap-2 p-1`}>
         <button onClick={toggleNode} className="flex items-center gap-2">
           {node.children.length > 0 && (
@@ -66,7 +67,7 @@ export function TreeNode({ node }: TreeNodeProps) {
         </button>
       </div>
 
-      {node.isExpanded && node.children && (
+      {node.isExpanded && node.children.length > 0 && (
         <div className="ml-2 pl-2 border-l border-gray-400/50">
           {node.children.map((nodeChild) => (
             <TreeNode key={nodeChild.id} node={nodeChild} />

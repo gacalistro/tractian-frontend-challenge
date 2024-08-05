@@ -10,8 +10,8 @@ export function Layout() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="h-12 px-4 flex items-center justify-between bg-blue-950">
+    <div className="flex flex-col h-screen">
+      <header className="h-12 px-4 flex items-center justify-between bg-blue-950 flex-shrink-0">
         <img src="/logo.svg" />
 
         <div className="flex items-center gap-[10px]">
@@ -32,9 +32,9 @@ export function Layout() {
         </div>
       </header>
 
-      <main className="flex-1 flex p-2">
+      <main className="flex p-2 flex-1 h-full max-h-[93%]">
         <section className="bg-white flex-1 p-4 border rounded space-y-3 flex flex-col">
-          <header className="flex items-center justify-between">
+          <header className="flex items-center justify-between h-8">
             <UnitTitle companies={companies} />
             <ActiveFiltersButtons />
           </header>

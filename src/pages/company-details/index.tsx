@@ -19,11 +19,11 @@ export function CompanyDetails() {
   }, [data]);
 
   return (
-    <div className="flex flex-1 gap-2">
-      <div className="border basis-1/3 rounded-sm">
+    <div className="flex gap-2 h-[93%]">
+      <div className="border basis-1/3 rounded-sm flex flex-col">
         <SearchInput />
 
-        <div className="px-1">
+        <div className="px-1 overflow-scroll">
           {state.map((node) => (
             <TreeNode key={node.id} node={node} />
           ))}

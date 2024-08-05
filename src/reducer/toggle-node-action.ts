@@ -1,11 +1,11 @@
 import type { NodeProps } from "../types";
 
 export const toggleNode = (
-  nodes: NodeProps[],
+  tree: NodeProps[],
   id: string,
   isExpanded: boolean
 ): NodeProps[] => {
-  return nodes.map((node) => {
+  return tree.map((node) => {
     if (node.id === id) {
       return { ...node, isExpanded };
     }

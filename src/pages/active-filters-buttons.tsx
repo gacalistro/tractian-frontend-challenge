@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTreeContext } from "../context/tree-context";
 import { TreeActionEnum } from "../reducer/tree-reducer";
@@ -36,6 +36,13 @@ export function ActiveFiltersButtons() {
       activeFilters,
     });
   };
+
+  useEffect(() => {
+    setActiveFilters({
+      energySensor: false,
+      criticStatus: false,
+    });
+  }, [companyId]);
 
   return (
     companyId && (
