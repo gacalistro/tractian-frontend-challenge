@@ -6,16 +6,14 @@
 
 ### Demonstration
 
-Check the deployed app: [website](gacalistro.github.io/tractian-frontend-challenge/)
+Check the deployed app: [website](https://gacalistro.github.io/tractian-frontend-challenge/)
 
 Here's a video testing all functionalities:
 
-
 https://github.com/user-attachments/assets/ff19bdba-18f5-46bd-b175-4104f7e063c6
 
-
-
 ### To do
+
 - [x] Render tree recursively
 - [x] Improve performance rendering tree
 - [x] Expand node (toggle)
@@ -25,7 +23,6 @@ https://github.com/user-attachments/assets/ff19bdba-18f5-46bd-b175-4104f7e063c6
 - [x] Clear state when change pages
 - [ ] Clear state when start filter or search
 - [ ] Show node details
-
 
 ### Run locally
 
