@@ -2,6 +2,7 @@ import { NavLink, Outlet, useLoaderData } from "react-router-dom";
 import { UnitTitle } from "./unit-title";
 import { ActiveFiltersButtons } from "./active-filters-buttons";
 
+import Logo from "../assets/logo.svg?react";
 import CompanyIcon from "../assets/icons/company.svg?react";
 
 export function Layout() {
@@ -12,7 +13,7 @@ export function Layout() {
   return (
     <div className="flex flex-col h-screen">
       <header className="h-12 px-4 flex items-center justify-between bg-blue-950 flex-shrink-0">
-        <img src="/logo.svg" />
+        <Logo />
 
         <div className="flex items-center gap-[10px]">
           {companies.map((company) => (
