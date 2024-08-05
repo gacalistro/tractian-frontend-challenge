@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { api } from "./lib/axios.ts";
 import { Companies } from "./pages/companies/index.tsx";
 import { CompanyDetails } from "./pages/company-details/index.tsx";
@@ -6,7 +6,7 @@ import { Layout } from "./pages/layout.tsx";
 import type { NodeProps } from "./types.ts";
 import { buildTreeFromJson } from "./utils/build-tree-from-json.ts";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     element: <Layout />,
     loader: async () => {
